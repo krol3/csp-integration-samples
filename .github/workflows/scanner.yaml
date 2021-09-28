@@ -1,0 +1,21 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+env:
+  ORG: "krol"
+jobs:
+  scanner:
+    name: scanning-image
+    environment: AQUA_EMAIL
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Aqua Credentials
+        run: |
+          wget --user ${{ env.AQUA_EMAIL }} --password ${{ env.AQUA_PASS }} https://download.aquasec.com/scanner/6.2.0/scannercli
